@@ -30,8 +30,6 @@ bool GameBullet::init(int w)
 	CCString* fontName = CCString::create("");
 
 	bulletTTF = CCLabelTTF::create("*", fontName->getCString(), fontSize);
-	bulletTTF->setColor(ccc3(0, 0, 0));
-	bulletTTF->setAnchorPoint(ccp(1, 0.5));
 	this->addChild(bulletTTF);
 	this->setVisible(false);
 
@@ -45,6 +43,17 @@ GameScene* GameBullet::getGameScene()
 
 void GameBullet::attack(int kind, GameEnemy* enemy, char* string)
 {
+	if (kind > 0)
+	{
+		this->bulletTTF->setColor(ccc3(0, 0, 0));
+		this->bulletTTF->setAnchorPoint(ccp(1, 0.5));
+	}
+	else
+	{
+		this->bulletTTF->setColor(ccc3(255 , 0, 0));
+		this->bulletTTF->setAnchorPoint(ccp(0, 0.5));
+	}
+
 	this->kind = kind;
 	this->enemy = enemy;
 	this->you = getGameScene()->gamePlayerLayer->gameYou;
