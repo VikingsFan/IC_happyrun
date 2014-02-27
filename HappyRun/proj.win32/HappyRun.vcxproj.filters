@@ -7,9 +7,6 @@
     <Filter Include="Classes">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\Words">
-      <UniqueIdentifier>{be1e7faa-2dfa-4423-b145-a38ff6532015}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,25 +18,37 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Word.cpp">
-      <Filter>Classes\Words</Filter>
-    </ClCompile>
-    <ClCompile Include="WordsHelper.cpp">
-      <Filter>Classes\Words</Filter>
-    </ClCompile>
-    <ClCompile Include="SettingPage.cpp">
+    <ClCompile Include="..\Classes\LifeCircleLogger.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="HomePage.cpp">
+    <ClCompile Include="..\Classes\GameScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="ReviewPage.cpp">
+    <ClCompile Include="..\Classes\GameBackgroundLayer.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="HelpPage.cpp">
+    <ClCompile Include="..\Classes\GamePlayerLayer.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="WordStorePage.cpp">
+    <ClCompile Include="..\Classes\GameYou.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameMapLayer.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameEnemyLayer.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameEnemy.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameControlLayer.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameBullet.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameBulletLayer.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,25 +62,37 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Word.h">
-      <Filter>Classes\Words</Filter>
-    </ClInclude>
-    <ClInclude Include="WordsHelper.h">
-      <Filter>Classes\Words</Filter>
-    </ClInclude>
-    <ClInclude Include="SettingPage.h">
+    <ClInclude Include="..\Classes\LifeCircleLogger.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="HomePage.h">
+    <ClInclude Include="..\Classes\GameScene.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="ReviewPage.h">
+    <ClInclude Include="..\Classes\GameBackgroundLayer.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="HelpPage.h">
+    <ClInclude Include="..\Classes\GamePlayerLayer.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="WordStorePage.h">
+    <ClInclude Include="..\Classes\GameYou.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMapLayer.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameEnemyLayer.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameEnemy.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameControlLayer.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameBullet.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameBulletLayer.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

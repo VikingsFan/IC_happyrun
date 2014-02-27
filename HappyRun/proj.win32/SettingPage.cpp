@@ -1,7 +1,9 @@
 #include "SettingPage.h"
 #include "HomePage.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 CCScene* SettingPage::scene()
 {
@@ -50,6 +52,9 @@ bool SettingPage::init()
     pMenu->setPosition(CCPointZero);
     this->addChild(pMenu, 1);
 
+
+
+
     /////////////////////////////
     // 3. add your codes below...
 
@@ -74,7 +79,33 @@ bool SettingPage::init()
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
     
+	
+	SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("lucky.mid");
+	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("lucky.mid", true);
+	
+	CCSize size = CCDirector::sharedDirector()->getWinSize();
+
+	CCControlSlider *slider = CCControlSlider::create("sliderTrack.jpg", "progress.jpg", "voiceButton.jpg");
+	slider -> setMinimumAllowedValue(0);
+	slider -> setMaximumAllowedValue(1);
+	slider -> setValue(0.5);
+
+	slider -> setAnchorPoint(ccp(0.5, 1));
+	slider -> setPosition(ccp(size.width / 2, size.height / 2));
+
+	slider -> addTargetWithActionForControlEvents(this, cccontrol_selector(SettingPage::callBack), CCControlEventValueChanged);
+
+	addChild(slider, 2);
+
+
     return true;
+}
+
+void SettingPage::callBack(CCObject *pSender, CCControlEvent controlEvent)
+{
+	CCControlSlider* pSlider = (CCControlSlider*) pSender;
+	SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(pSlider->getValue());
+	CCLOG("%f", pSlider->getValue() * 5);
 }
 
 

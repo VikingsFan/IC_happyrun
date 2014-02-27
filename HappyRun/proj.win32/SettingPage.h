@@ -1,7 +1,9 @@
 #ifndef __SETTING_SCENE_H__
 #define __SETTING_SCENE_H__
 
+#include "cocos-ext.h"
 #include "cocos2d.h"
+USING_NS_CC_EXT;
 
 class SettingPage : public cocos2d::CCLayer
 {
@@ -14,6 +16,7 @@ public:
     
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
+	void callBack(CCObject *sender, CCControlEvent controlEvent);
     
     // implement the "static node()" method manually
     CREATE_FUNC(SettingPage);
