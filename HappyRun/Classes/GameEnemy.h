@@ -14,12 +14,16 @@ public:
 	bool init(int w);
 	GameScene* getGameScene();
 
-	void refreshPosition();
-
 	int decisionCD;
 	int dir;
 
-	float life;
+	int fullLife;
+	int life;
+
+	void hurt(int damage);
+	void runAI(float dt);
+
+	void recycle();
 
 	CCSprite* enemySprite;
 };

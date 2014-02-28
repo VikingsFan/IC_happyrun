@@ -20,6 +20,8 @@ public:
 	void moveComand();
 	void jumpComand();
 
+	bool isInView(CCPoint p);
+
 	void update(float dt);
 	void refreshPlayer(float dt);
 	void refreshEnemy(float dt);

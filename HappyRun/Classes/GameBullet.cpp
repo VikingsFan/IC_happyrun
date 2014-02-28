@@ -20,6 +20,7 @@ bool GameBullet::init(int w)
 {
 	index = w;
 	kind = 0;
+	damage = 0;
 
 	speedX = 0;
 	speedY = 0;
@@ -43,6 +44,16 @@ GameScene* GameBullet::getGameScene()
 
 void GameBullet::attack(int kind, GameEnemy* enemy, char* string)
 {
+	if (CCRANDOM_0_1() * 10 > 9.0)
+	{
+		this->bulletTTF->setFontSize(100);
+		this->damage = 5;
+	}
+	else
+	{
+		this->bulletTTF->setFontSize(20);
+		this->damage = 1;
+	}
 	if (kind > 0)
 	{
 		this->bulletTTF->setColor(ccc3(0, 0, 0));
@@ -69,18 +80,62 @@ void GameBullet::attack(int kind, GameEnemy* enemy, char* string)
 		this->setPosition(this->enemy->getPosition());
 	lastP = this->getPosition();
 	this->bulletTTF->setString(string);
+	this->bulletTTF->setOpacity(255);
 	this->setRotation(0);
 	this->setVisible(true);
 }
 
+void GameBullet::hurt()
+{
+	if (!damage)
+		return;
+	float x = this->getPositionX();
+	float y = this->getPositionY();
+	float tX, tY;
+	float g = getGameScene()->game_g;
+	if (kind > 0)
+	{
+		tX = enemy->getPositionX();
+		tY = enemy->getPositionY();
+	}
+	else
+	{
+		tX = you->getPositionX();
+		tY = you->getPositionY();
+	}
+	if ((abs(x - tX) < 15) && (abs(y - tY) < 15))
+	{
+		if (kind > 0)
+		{
+			enemy->hurt(damage);
+		}
+		else
+		{
+			you->life -= damage;
+		}
+
+	}
+}
+void GameBullet::recycle()
+{
+	this->setVisible(false);
+	((GameBulletLayer*)this->getParent())->recycleBullet(this->index);
+}
+
 void GameBullet::refresh(float dt)
 {
+	if (!this->getGameScene()->isInView(this->getPosition()))
+	{
+		this->recycle();
+		return;
+	}
 	if (this->flying)
 	{
 		float x = this->getPositionX();
 		float y = this->getPositionY();
 		float tX, tY;
 		float g = getGameScene()->game_g;
+
 		if (kind > 0)
 		{
 			tX = enemy->getPositionX();
@@ -103,7 +158,6 @@ void GameBullet::refresh(float dt)
 		y += speedY * dt;
 		if ((x != lastP.x) && ret)
 		{
-			CCLog("(%f,%f) (%f,%f) %f %f", x, y, lastP.x, lastP.y, (y - lastP.y) / (x - lastP.x), atan((y - lastP.y) / (x - lastP.x)));
 			this->setRotation(-atan((y - lastP.y) / (x - lastP.x)) / 3.14 * 180);
 		}
 		if (y <= 200)
@@ -114,7 +168,21 @@ void GameBullet::refresh(float dt)
 			flying = false;
 		}
 		this->setPosition(ccp(x, y));
+		
+		hurt();
+		
 		lastP = this->getPosition();
+	}
+	else
+	{
+		this->bulletTTF->setOpacity(this->bulletTTF->getOpacity() - 51 * dt);
+		if (this->bulletTTF->getOpacity() <= 0)
+		{
+			recycle();
+			return;
+		}
+		if (!((GameBulletLayer*)this->getParent())->enough())
+			recycle();
 	}
 }
 

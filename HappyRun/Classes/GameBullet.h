@@ -20,6 +20,7 @@ public:
 
 	int index;
 	int kind;
+	int damage;
 
 	float speedX;
 	float speedY;
@@ -32,7 +33,10 @@ public:
 
 	CCPoint lastP;
 
+	void recycle();
+
 	void attack(int kind, GameEnemy* enemy, char* string);
+	void hurt();
 
 	void refresh(float dt);
 };

@@ -13,6 +13,8 @@ public:
 	bool init(int w);
 	GameScene* getGameScene();
 
+	int life;
+
 	int speed;
 	int jumpSpeed;
 

@@ -3,31 +3,39 @@
 
 USING_NS_CC;
 
+enum {
+	gameBackgroundLayerZ = 0,
+	gameBulletLayerZ,
+	gameMapLayerZ,
+	gameControlLayerZ,
+	gameEnemyLayerZ,
+	gamePlayerLayerZ
+};
 bool GameScene::init()
 {
 	//preloadResources();
 	if (CCScene::init()){
 		gameBackgroundLayer = GameBackgroundLayer::create();
-		this->addChild(gameBackgroundLayer);
+		this->addChild(gameBackgroundLayer, gameBackgroundLayerZ);
 
 		gameMapLayer = GameMapLayer::create();
-		this->addChild(gameMapLayer);
+		this->addChild(gameMapLayer, gameMapLayerZ);
 
 		gameControlLayer = GameControlLayer::create();
-		this->addChild(gameControlLayer);
+		this->addChild(gameControlLayer, gameControlLayerZ);
 		
 		gameBulletLayer = GameBulletLayer::create();
-		this->addChild(gameBulletLayer);
+		this->addChild(gameBulletLayer, gameBulletLayerZ);
 
 		gameEnemyLayer = GameEnemyLayer::create();
-		this->addChild(gameEnemyLayer);
+		this->addChild(gameEnemyLayer, gameEnemyLayerZ);
 
 		gamePlayerLayer = GamePlayerLayer::create();
-		this->addChild(gamePlayerLayer);
+		this->addChild(gamePlayerLayer, gamePlayerLayerZ);
 
 		game_g = 600;
 
-		for (int i = 0; i < 1000000; i++)
+		//for (int i = 0; i < 1000000; i++)
 		gameViewOriginPoint = CCPointZero;
 		this->scheduleUpdate();
 
@@ -51,6 +59,13 @@ void GameScene::jumpComand()
 	gamePlayerLayer->gameYou->jumpComand();
 }
 
+bool GameScene::isInView(CCPoint p)
+{
+	if (p.x < (-gameViewOriginPoint.x - 100))
+		return false;
+	return true;
+}
+
 void GameScene::update(float dt)
 {
 	this->refreshPlayer(dt);
@@ -66,7 +81,7 @@ void GameScene::refreshPlayer(float dt)
 
 void GameScene::refreshEnemy(float dt)
 {
-	this->setEnemyAI(dt);
+	gameEnemyLayer->refresh(dt);
 }
 
 void GameScene::refreshBullet(float dt)
@@ -88,68 +103,6 @@ void GameScene::setPlayerJump(float dt)
 		else
 			gamePlayerLayer->gameYou->jumpSpeed -= dt * game_g;
 		gamePlayerLayer->gameYou->setPositionY(y);
-	}
-}
-
-void GameScene::setEnemyAI(float dt)
-{
-	CCObject* pObject = NULL;
-	CCARRAY_FOREACH(gameEnemyLayer->enemys, pObject)
-	{
-		GameEnemy* enemy = (GameEnemy*)pObject;
-		if (enemy->isVisible())
-		{
-			float x = enemy->getPositionX();
-			float y = enemy->getPositionY();
-			if (enemy->life <= 0)
-			{
-				enemy->setVisible(false);
-				return;
-			}
-			if (enemy->decisionCD > 200)
-			{
-				float ret = CCRANDOM_0_1() * 1000;
-				attackComand(-1, enemy);
-				if (ret > 950)
-				{
-					//attackComand(-1, enemy);
-				}
-				else if (ret > 850)
-				{
-					// jump
-				}
-				else if (ret > 700)
-				{
-					enemy->dir = 0;
-					enemy->decisionCD = 0;
-				}
-				else if (ret > 350)
-				{
-					enemy->dir = 1;
-					enemy->decisionCD = 0;
-				}
-				else
-				{
-					enemy->dir = -1;
-					enemy->decisionCD = 0;
-				}
-			}
-			else
-				enemy->decisionCD++;
-			x += enemy->dir;
-			CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-			if (x < gamePlayerLayer->gameYou->getPositionX() + visibleSize.width / 5)
-			{
-				enemy->dir = 1;
-				x += enemy->dir * 2;
-			}
-			else if (x - (-gameViewOriginPoint.x) > visibleSize.width)
-			{
-				enemy->dir = -1;
-				x += enemy->dir * 2;
-			}
-			enemy->setPosition(x, y);
-		}
 	}
 }
 

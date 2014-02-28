@@ -15,6 +15,7 @@ GameYou* GameYou::create(int w)
 bool GameYou::init(int w)
 {
 	youSprite = CCSprite::create("man.png");
+	life = 255;
 	speed = 200;
 	this->addChild(youSprite);
 	this->setPosition(ccp(15,215));

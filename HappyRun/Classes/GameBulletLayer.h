@@ -16,6 +16,9 @@ public:
 	CCArray* bullets;
 	GameScene* getGameScene();
 
+	bool enough();
+	void recycleBullet(int index);
+
 	bool attack(int kind, GameEnemy* enemy, char* string);
 	
 	void refresh(float dt);
